@@ -72,7 +72,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func actionSheet(sender: UIButton) {
-        let actionSheet    = UIAlertController(title: "Alert", message: "Hello, I'm an action sheet!", preferredStyle: .ActionSheet)
+        let actionSheet    = UIAlertController(title: "Action Sheet", message: "Hello, I'm an action sheet!", preferredStyle: .ActionSheet)
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
         let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
         let destroyAction     = UIAlertAction(title: "Destroy", style: .Destructive) { (action) -> Void in
@@ -82,6 +82,16 @@ class ViewController: UIViewController {
         actionSheet.addAction(okAction)
         actionSheet.addAction(cancelAction)
         actionSheet.addAction(destroyAction)
+        actionSheet.modalPresentationStyle = .Popover
+        
+        
+        if let popover = actionSheet.popoverPresentationController {
+            
+            popover.sourceView = sender
+            popover.permittedArrowDirections = .Down
+            popover.sourceRect = sender.bounds
+        }
+        
         presentViewController(actionSheet, animated: true, completion: nil)
     }
 }
